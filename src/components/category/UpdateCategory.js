@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-
+import {connect} from 'react-redux';
+import {updateCategory} from '../../store/actions/categoryActions';
+import { compose } from 'redux';
  
 class UpdateCategory extends Component {
     state = {
         name:'',
-        bnName: ''
+        bnName: '',
+        order: ''
     }
 
     handleChange = (e) =>{
@@ -15,15 +18,22 @@ class UpdateCategory extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        let docId = this.props.match.params.cat_id;
+        this.props.updateCategory(docId, this.state);
+        this.props.history.push("/dashboard");
     }
 
         
     render() {
 
         let id = this.props.match.params.cat_id;
-        console.log('category id : ', id);
+        let categories = this.props.categories;
+        console.log('category  : ',typeof(categories), categories);
+
+
+
         return (
+
             <div className='form-container container'>
                 <div className="row">
                     <div className="col m6 offset-m3">
@@ -41,6 +51,12 @@ class UpdateCategory extends Component {
                                     <label htmlFor="bnName">Bengli name</label>
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="order" type="text" className="validate"  onChange={this.handleChange} />
+                                    <label htmlFor="order">Order</label>
+                                </div>
+                            </div>
                             <button className="btn waves-effect waves-teal"> Update Category </button>
                         </form>
                     </div>
@@ -52,4 +68,14 @@ class UpdateCategory extends Component {
 }
 
 
-export default UpdateCategory;
+
+const mapDispatchToProps =(dispatch)=>{
+    return {
+        updateCategory: (docId, updatedCategory)=>dispatch(updateCategory(docId, updatedCategory))
+    }
+}
+
+
+export default compose(
+    connect(null, mapDispatchToProps)
+)(UpdateCategory);

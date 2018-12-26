@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import ClientView from './components/clientviews/ClientView';
 import Dashboard from './components/dashboard/Dashboard';
-import UpdateCategory from './components/category/UpdateCategory';
 import CreateSubCat from './components/category/CreateSubCat';
+import CreateCategory from './components/category/CreateCategory';
+import UpdateCategory from './components/category/UpdateCategory';
 
 
 
@@ -13,9 +14,10 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route path="/dashboard/subcat/create/:cat_id" component={CreateSubCat} />
+            <Route path="/dashboard/category/create" component={CreateCategory} />
+            <Route path="/dashboard/category/update/:cat_id" component={UpdateCategory} />
+            <Route path="/dashboard/subcat/create/:cat_id/:cat_name" component={CreateSubCat} />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route path="/dashboard/update/:cat_id" component={UpdateCategory} />
             <Route path="/" component={ClientView} />
           </Switch>
         </div>

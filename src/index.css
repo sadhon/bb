@@ -25,6 +25,9 @@ code {
 
 .cat-item a{
   text-transform: capitalize;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .secondary-content {
@@ -52,4 +55,15 @@ ul.subcat a::before{
   content: '-->';
   clear: both;
 }
+
+ul.collection.with-header.cat {
+  border-width: 0;
+}
+
+li.collection-item.cat-item.card {
+  margin-top: 40px;
+  border: 1px solid rgba(0,0,0,0.12);
+  text-transform: capitalize;
+}
+
 

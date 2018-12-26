@@ -43,6 +43,9 @@ const mapStateToProps = (state) => {
 export default compose(
     connect(mapStateToProps),
     firestoreConnect([
-        { collection : 'categories' }
+        { 
+            collection : 'categories' ,  
+            orderBy: ['order', 'asc']
+        }
     ])
 )(CategoryList)

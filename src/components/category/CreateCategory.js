@@ -4,12 +4,13 @@ import { createCategory } from '../../store/actions/categoryActions';
 class CreateCategory extends Component {
     state = {
         name:'',
-        bnName: ''
+        bnName: '',
+        order: ''
     }
 
     handleChange = (e) => {
         this.setState({
-            [e.target.id] : e.target.value
+            [e.target.id] : e.target.value.toLowerCase()
         })
     }
 
@@ -25,7 +26,7 @@ class CreateCategory extends Component {
                 bnName: ''
             });
 
-            this.props.hideCategory();
+            this.props.history.push("/dashboard");
         }
 
 
@@ -34,24 +35,37 @@ class CreateCategory extends Component {
 
     render() {
         return (
-        <div className='form-container'>
-            <form onSubmit={this.handleSubmit} >
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="name" type="text" value={this.state.name} className="validate" onChange={this.handleChange} />
-                        <label htmlFor="name">Category name</label>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input-field col s12">
-                        <input id="bnName" type="text" value={ this.state.bnName } className="validate"  onChange={this.handleChange} />
-                        <label htmlFor="bnName">Bengli name</label>
-                    </div>
-                </div>
-                
+        <div className='form-container container'>
+            <div className="row">
+                <div className="col m6 offset-m3 s12">
+                    <form onSubmit={this.handleSubmit} >
+                        <legend><h4>Create a new category</h4></legend>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="name" type="text"  className="validate" onChange={this.handleChange} />
+                                <label htmlFor="name">Category name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="bnName" type="text"  className="validate"  onChange={this.handleChange} />
+                                <label htmlFor="bnName">Bengli name</label>
+                            </div>
+                        </div>
 
-                <button className="btn waves-effect waves-teal"> Submit</button>
-            </form>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="order" type="text"  className="validate"  onChange={this.handleChange} />
+                                <label htmlFor="order">Order</label>
+                            </div>
+                        </div>
+                        
+
+                        <button className="btn waves-effect waves-teal"> Submit</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
         )
     }
