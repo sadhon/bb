@@ -3,13 +3,17 @@ import CreateCategory from '../category/CreateCategory';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
  
 class DbCategory extends Component {
     state = {
         showCreateCategory: false,
-        showUpdateCategory: false
+        showUpdateCategory: false,
+        updateId : '',
+        deleteId: ''
     }
 
+    // show form and add category
     addCat  = () => {
         this.setState({
             ...this.state,
@@ -17,6 +21,9 @@ class DbCategory extends Component {
         })
     }
 
+
+
+    //hide add category form 
     hideCategory = () =>{
         this.setState({
             ...this.state,
@@ -24,9 +31,11 @@ class DbCategory extends Component {
         })
     }
 
+
+
     render() {
 
-        //console.log(this.props.categories);
+        console.log(this.props.categories);
         const categories = this.props.categories;
 
 
@@ -37,8 +46,9 @@ class DbCategory extends Component {
 
         return (
             <div className="db">
+
                 <div className="container">
-                    <ul className="collection with-header">
+                    <ul className="collection with-header cat">
                         <li className="collection-header">
                             <h4>First Names 
                                 <span className="secondary-content"  onClick={this.addCat} >
@@ -50,11 +60,28 @@ class DbCategory extends Component {
                         {
                             categories && categories.map(category=>{
                                 return (
-                                    <li className="collection-item" key={category.id}>
-                                        <div>{category.name}
-                                            <span className="secondary-content" onClick={this.deleteCat}><i className="material-icons">delete</i></span>
-                                            <span className="secondary-content" onClick={this.updateCat} ><i className="material-icons">update</i></span>
+                                    <li className="collection-item cat-item" key={category.id}>
+                                        <div >{category.name}
+                                            <Link to={'/dashboard/update/' + category.id }  className="secondary-content" ><i className="material-icons">update</i></Link>
+                                            <Link to={'/dashboard/subcat/create/' + category.id }  className="secondary-content" ><i className="material-icons">add</i></Link>
                                         </div>
+
+                                        <ul className="collection sub-cat">
+                                            {
+                                                category.subcats && category.subcats.map(subcat => {
+                                                    return (
+                                                        <li className="collection-item subcat-item" key={subcat.name}>
+                                                            <div>{subcat.name}
+                                                                <span className="secondary-content" onClick={this.deleteCat}><i className="material-icons">delete</i></span>
+                                                                <Link to={'/dashboard/update/' + category.id }  className="secondary-content" ><i className="material-icons">update</i></Link>
+                                                                <Link to={'/dashboard/subcat/create/' + category.id }  className="secondary-content" ><i className="material-icons">add</i></Link>
+                                                            </div>                                             
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+
+                                        </ul>
                                     </li>
                                 )
                             })
@@ -63,6 +90,7 @@ class DbCategory extends Component {
 
                     </ul>
                 </div>
+
             </div>
         )
     }

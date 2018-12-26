@@ -1,3 +1,4 @@
+
 export const createCategory = (category) => {
     return (dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -12,6 +13,37 @@ export const createCategory = (category) => {
         })
     }
     
+}
+
+export const createSubCat = (docId, subCat) =>{
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        firestore.collection('categories').doc(docId).update({
+            'subcats' : getFirebase().firestore.FieldValue.arrayUnion(subCat)
+        }).then(()=>{
+            dispatch({type: "SUBCAT_CREATED", subCat});
+        }).catch((err)=>{
+            dispatch({type: "SUBCAT_CREATED_ERROR", err});
+        })
+
+    }
+
+}
+
+
+
+
+export const updateCategory = (id, updateCategory) => {
+    return (dispatch, getState, { fetFirebase, getFirestore }) => {
+        const firestore = getFirestore();
+        firestore.collection('categories').doc(id)
+        .update(updateCategory).then(()=>{
+            dispatch({type:'CATEGORY_UPDATED', updateCategory})
+
+        }).catch((err)=>{
+            dispatch({type:"CATEGORY_UPDATED_ERROR", err});
+        })
+    }
 }
 
 // export const createProject = (project) => {
