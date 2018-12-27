@@ -66,4 +66,10 @@ li.collection-item.cat-item.card {
   text-transform: capitalize;
 }
 
+select{
+  display: block;
+}
+.capitalize{
+  text-transform: capitalize;
+}
 
