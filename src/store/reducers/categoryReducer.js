@@ -1,12 +1,13 @@
-const initState = {
-  categories : []
-}
-const categoryReducer = (state=initState, action) => {
+
+const categoryReducer = (state={}, action) => {
   console.log(state)
   switch(action.type){
     case 'SUBCAT_DELETED':
       console.log(state)
-      return state;
+      return {
+        ...state,
+        subcats: action.new_subcat
+      };
 
     case 'CATEGORY_DELETED' : 
     

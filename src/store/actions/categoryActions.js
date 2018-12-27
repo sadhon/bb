@@ -1,4 +1,4 @@
-
+//create a new category
 export const createCategory = (category) => {
     return (dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -15,20 +15,26 @@ export const createCategory = (category) => {
     
 }
 
-export const updateCategory = (id, updateCategory) => {
+//update category
+export const updateCategory = (id, updatedCategory) => {
     return (dispatch, getState, { fetFirebase, getFirestore }) => {
         const firestore = getFirestore();
         firestore.collection('categories').doc(id)
-        .update(updateCategory).then(()=>{
-            dispatch({type:'CATEGORY_UPDATED', updateCategory})
-
+        .set(
+            {
+                ...updatedCategory, 
+                createdAt: new Date(),
+            }
+            , {merge:true}
+            ).then(()=>{
+            dispatch({type:'CATEGORY_UPDATED', updatedCategory})
         }).catch((err)=>{
             dispatch({type:"CATEGORY_UPDATED_ERROR", err});
         })
     }
 }
 
-
+//delete category
 export const deleteCategory = (docId) => {
     return (dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
@@ -42,6 +48,8 @@ export const deleteCategory = (docId) => {
     }
 }
 
+
+//create a sub category under a category
 export const createSubCat = (docId, subCat) =>{
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
@@ -56,16 +64,16 @@ export const createSubCat = (docId, subCat) =>{
     }
 }
 
-export const deleteSubCat = (docId, subCats, subcat_name) => {
+
+//delete a subcategory 
+export const deleteSubCat = (docId, new_subcat) => {
     return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firestore = getFirestore();
         firestore.collection('categories').doc(docId).set({
             createdAt : new Date(),
-            //'subcats' : getFirebase().firestore.FieldValue.arrayRemove(subCat)
-            subcats : subCats.filter(subcat => subcat.name !== subcat_name)
-            
-        }, {merge: true}).then(()=>{
-            dispatch({type: "SUBCAT_DELETED", subcat_name});
+            subcats : new_subcat
+            }, {merge: true}).then(()=>{
+            dispatch({type: "SUBCAT_DELETED", new_subcat});
         }).catch((err)=>{
             dispatch({type: "SUBCAT_DELETED_ERROR", err});
         })
