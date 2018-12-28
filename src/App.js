@@ -21,6 +21,7 @@ class App extends Component {
             <Route path="/dashboard/category/update/:cat_id" component={UpdateCategory} />
             <Route path="/dashboard/subcat/create/:cat_id/:cat_name" component={CreateSubCat} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route path="/:cat_sub" component={ClientView} />
             <Route path="/" component={ClientView} />
           </Switch>
         </div>

@@ -10,11 +10,9 @@ class SubCatSelect extends Component {
             <div className="input-field col s12">
                 <div className="row">
                     <select value={this.state.sub} id="sub" className="capitalize col m6 s12" onChange={this.handleChange}>
-        sub cat
+                        sub cat
                     </select>
-
-                </div>
-        
+                </div>       
             </div>
         )
     }

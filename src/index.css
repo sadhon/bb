@@ -17,6 +17,9 @@ code {
 }
 
 /* custom style */
+.navbar {
+  background: #ffffff;
+}
 .cat-item {
   font-weight: bold;
   font-size: 18px;
@@ -78,4 +81,88 @@ select {
 .capitalize{
   text-transform: capitalize;
 }
+
+/* product list style */
+.product-list{
+  display: block;
+  text-align: center;
+}
+.single-product {
+  width: 210px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.single-product img{
+  transition: all .3s;
+  max-height: 120px;
+}
+
+.single-product:hover img {
+  transform: scale(1.1);
+}
+.btn-floating.halfway-fab {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+.banar {
+  display: block;
+  width: 60%;
+  margin: 0 auto 50px;
+}
+
+.card .card-content {
+  padding: 5px;
+}
+
+.card .card-content .card-title {
+  font-size: 16px;
+  line-height: 18px;
+  min-height: 55px;
+}
+.price{
+  font-weight: 500;
+  font-size: 17px;
+}
+
+/* sidebar design */
+.sidebar-container {
+  width: 230px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9;
+  background: #F5F5F5;
+  padding: 60px 0 0 10px;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+
+
+.content-container {
+  margin-left: 235px;
+  background: #FAFAFA;
+}
+
+.card .card-reveal {
+  padding: 5px;
+}
+
+.card .card-reveal .card-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.material-icons {
+  font-size: 20px;
+}
+
+
 

@@ -17,7 +17,11 @@ const CategoryList = ({categories}) => {
                                     {
                                         category.subcats && category.subcats.map(subcat =>{
                                             return (
-                                                <li key={subcat.name} className="subcat-item"><Link to={'/' + category.name + '/' + subcat.name} >{subcat.name} </Link></li>
+                                                <li key={subcat.name} className="subcat-item">
+                                                    <Link to={'/' + (category.name.trim().replace(" ", "_") + '_' + subcat.name.trim()).replace(" ", "_") } >
+                                                        {subcat.name} 
+                                                    </Link>
+                                                </li>
                                             
                                             )
                                         })
