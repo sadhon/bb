@@ -3,7 +3,9 @@ export const createCategory = (category) => {
     return (dispatch, getState, {getFirebase, getFirestore})=>{
         const firestore = getFirestore();
         firestore.collection('categories').add({
-            ...category,
+            name: category.name,
+            bnName: category.bnName,
+            order: parseInt(category.order),
             createdAt: new Date(),
             admin: 'sadhon'
         }).then(()=>{

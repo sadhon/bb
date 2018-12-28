@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
+import { addProduct } from '../../store/actions/productActions';
 
 function search(id, myArray){
     for (var i=0; i < myArray.length; i++) {
@@ -49,8 +50,14 @@ class CreateProduct extends Component {
     // for form submission
     handleSubmit = (e) => {
         e.preventDefault();
-    
-        console.log(this.state);
+        this.props.addProduct(this.state);
+        this.props.history.push("/dashboard");
+    }
+
+    inputChangeHandler = (e) =>{
+        this.setState({
+            [e.target.id]:e.target.value
+        })
     }
 
   render() {
@@ -98,12 +105,48 @@ class CreateProduct extends Component {
                     </div>
                 </div> 
 
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <input type="text" onChange={this.inputChangeHandler} id="name" placeholder="Product name " />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <input type="text" onChange={this.inputChangeHandler} id="bnName" placeholder="Product name in Bengali" />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <textarea  onChange={this.inputChangeHandler} id="desc" placeholder="Product Description" className="materialize-textarea"></textarea>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <textarea  onChange={this.inputChangeHandler} id="bnDesc" placeholder="Product Description in Bengali" className="materialize-textarea"></textarea>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <input type="text" onChange={this.inputChangeHandler} id="measurementUnit" placeholder="Measurement  unit" />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <input type="text" onChange={this.inputChangeHandler} id="price" placeholder="Price" />
+                    </div>
+                    <div className="col m6 s12 input-field ">
+                        <input type="number" onChange={this.inputChangeHandler} id="perUnit" placeholder="Per Unit" />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col m6 s12 input-field ">
+                        <input type="text" onChange={this.inputChangeHandler} id="keywords" placeholder="Product Keywords" />
+                    </div>
+                </div>
+
                 <button>Add The Product</button>
-
             </form>
-
-       
-        
       </div>
     )
   }
@@ -115,8 +158,14 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        addProduct: (product)=>dispatch(addProduct(product))
+    }
+}
+
 export default compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         {
             collection: 'categories'
