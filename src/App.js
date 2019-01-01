@@ -7,9 +7,6 @@ import CreateCategory from './components/category/CreateCategory';
 import UpdateCategory from './components/category/UpdateCategory';
 import CreateProduct from './components/products/CreateProduct';
 
-
-
-
 class App extends Component {
   render() {
     return (

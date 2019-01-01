@@ -1,21 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import officeImg from '../../img/office.jpg';
 
 
 class SingleProduct extends React.Component {
     state = {
-        selected: false,
-        qty: 0
+        selected: this.props.properties.selected,
+        qty: this.props.properties.qty,
+        name: this.props.properties.name,
+        id: this.props.properties.id, 
+        price: this.props.properties.price
     }
 
-    handleClick = (e)=>{
+    handleClick = (e, id, price, name) =>{
+
         this.setState({
             selected : true,
-            qty : this.state.qty + 1
-        })
+            qty : this.state.qty + 1,
+            id:id,
+            price: price,
+            name:name, 
+            totalPrice: price
+        },  function(){
+            this.props.addToBag(this.state)
+        } );
+
     }
-    
+
+
 
     render(){
         const product = this.props.product;
@@ -24,7 +35,7 @@ class SingleProduct extends React.Component {
                 <div className="card sticky-action">
                     <div className="card-image waves-effect waves-block waves-light">
                         <img className="activator" alt="hello" src={officeImg} />
-                        <span onClick={this.handleClick} className="btn-floating halfway-fab waves-effect waves-light green">
+                        <span onClick={e=>this.handleClick(e, product.id, product.price, product.name)} className="btn-floating halfway-fab waves-effect waves-light green">
                            {this.state.selected ? ( <i className="material-icons">check</i>) : ( <i className="material-icons">add</i>) }
                             </span>
 
@@ -39,8 +50,8 @@ class SingleProduct extends React.Component {
                         <p>{product['desc']}</p>
                     </div>
                     <div className="card-action">
-                        <Link to='/'>Add</Link>
-                        <Link to="/">Subtract</Link>
+                        <button className='btn'>Add</button>
+                        <button className='btn'>Subtract</button>
                     </div>
                 </div>
             </div>

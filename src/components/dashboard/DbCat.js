@@ -34,10 +34,7 @@ class DbCat extends Component {
                     categories && categories.map(category=>{
                         return (
                             <li className="collection-item cat-item card" key={category.id}>
-                                <div > {category.name} 
-                                    <span style={{'fontSize':'13px', 'fontWeight':'400'}}>
-                                        <i>  Updated: {moment( category.createdAt.toDate() ).calendar() + ' by ' + category.admin }  </i>
-                                    </span>
+                                <div title={ "Updated:" + moment( category.createdAt.toDate() ).calendar() + ' by ' + category.admin }> {category.name} 
                                     <span className="secondary-content"  title={ "Delete " + category.name + " and it's subcategory" }  style={{cursor:'pointer'}} onClick={(e=>this.deleteCategory(category.id))}>
                                         <i className="material-icons">delete</i>
                                     </span>
