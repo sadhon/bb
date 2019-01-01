@@ -50,24 +50,33 @@ class SingleProduct extends React.Component {
                             ): ('')
                         }
 
-
                     </div>
                     <div className="card-content">
-
                         <span className="card-title activator grey-text text-darken-4">{ product.name }</span>
                         <p> <span className="price"> ৳ { product.price } </span> ( per {product.perUnit + " " + product.measurementUnit} ) </p>
                     </div>
+
+
                     <div className="card-reveal">
                         <span className="card-title grey-text text-darken-4">Details<i className="material-icons right">close</i></span>
                         <p>{product['desc']}</p>
                     </div>
+
+
                     <div className="card-action">
                         <button   
+                        title="add to bag"
+                        className="left"
                         onClick={e=>this.handleClick(e, product.id, product.price, product.name)} >
                             <i className="material-icons  ">exposure_plus_1</i>
                         </button>
+
+                        <p className="left"> qty:  {this.state.qty}</p>
                        
-                        <button  disabled={this.state.qty < 1}
+                        <button 
+                        title="remove from bag"
+                        className="right" 
+                        disabled={this.state.qty < 1}
                         onClick={e=>this.decreaseQty(e, product.id, this.state.qty)}>
                             <i className="material-icons  ">exposure_neg_1</i>
                         </button>

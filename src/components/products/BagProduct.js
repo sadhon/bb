@@ -17,19 +17,18 @@ class BagProduct extends Component {
         return (
             <li className="single-bag-product" >
                 <div className="action">
-                    <span 
+                    <button 
                     onClick={ (e)=>this.increaseQty(e, product.id )}>
                     <i className="material-icons  ">exposure_plus_1</i>
-                    </span>
-                    <span 
+                    </button>
+                    <button 
                     onClick={ (e)=> this.decreaseQty(e, product.id, product.qty )}>
                     <i className="material-icons  ">exposure_neg_1</i>
-                    </span>
+                    </button>
 
                 </div>
 
                 <div className="product-details">
-                <span><i className="material-icons  ">play_arrow</i></span>
                     { product.name } <br />
                     ৳ { product.price }  per item 
                 </div>

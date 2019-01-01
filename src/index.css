@@ -126,7 +126,15 @@ select {
   overflow: hidden;
 }
 .card .card-action {
-  padding: 5px;
+  padding: 15px 10px;
+  overflow: hidden;
+}
+
+.card-action p {
+  margin: 5px 0px 0 0px;
+  font-size: 13px;
+  text-align: center;
+  width: 88px;
 }
 .price{
   font-weight: 500;
@@ -196,21 +204,22 @@ select {
   bottom: 0;
   right: 0;
   background: #ddd;
-  height: calc(100vh - 100px );
+  max-height: calc(100vh - 100px );
   z-index: 9999;
   text-align: left;
   width: 320px;
+  padding-bottom: 40px;
 }
-.single-bag-product{
-  overflow: hidden;
-}
+
 .single-bag-product {
   border-bottom: 1px solid #fff;
-  padding: 5px 0;
+  padding: 4px;
   background: #fff;
   box-sizing: border-box;
-  margin: 5px 5px 1px;
+  margin: 5px 1px 1px;
   position: relative;
+  overflow: hidden;
+
 }
 
 .cross {
@@ -227,7 +236,7 @@ select {
   float: left;
 }
 
-.action span {
+.action button {
   display: block;
   cursor: pointer;
   border: 1px solid #b1a8a8;
@@ -235,17 +244,18 @@ select {
   margin-bottom: 5px;
   height: 20px;
   width: 20px;
+  padding: 0;
 }
 
-.action span .material-icons {
+.action .material-icons {
   font-size: 17px;
 }
 .product-details {
   float: left;
-  width: 200px;
+  width: 183px;
   padding: 0 5px;
   box-sizing: border-box;
-  font-size: 15px;
+  font-size: 13px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -259,4 +269,32 @@ select {
   padding: 0 5px;
 }
 
+button{
+  cursor: pointer;
+}
+.summary {
+  box-sizing: border-box;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+}
+.top{
+  background: #0f5369;
+
+}
+.top span{
+  display: inline-block;
+  width: 50%;
+}
+
+.top span:first-child{
+  text-align: left;
+}
+
+.top span:last-child{
+  text-align: right;
+}
 

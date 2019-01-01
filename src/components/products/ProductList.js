@@ -20,6 +20,15 @@ function getExistingObj(list , id){
 
 }
 
+function getSubTotal(list){
+    var sum = 0;
+    for (let i = 0; i< list.length ; i++)
+    {
+        sum += list[i].totalPrice;
+    }
+
+    return sum;
+}
 
 class ProductList extends React.Component {
 
@@ -113,33 +122,35 @@ class ProductList extends React.Component {
 
         var i = 0;
         return (
-            <div className="product-list">
-                {
-                    this.props.products && this.props.products.map(product=>{
-                        if(existsInside(this.state.bag_products, product.id))
-                        {
-                            let existing_product = getExistingObj(this.state.bag_products, product.id);
+            <div className="list-container">
+                <div className="product-list">
+                    {
+                        this.props.products && this.props.products.map(product=>{
+                            if(existsInside(this.state.bag_products, product.id))
+                            {
+                                let existing_product = getExistingObj(this.state.bag_products, product.id);
+
+                                return (
+                                <SingleProduct 
+                                properties={existing_product[0]} 
+                                addToBag={this.addToBag} 
+                                decrease={this.decrease}
+                                product={product} 
+                                key={product.name + Math.random() + "_" + i++ + new Date()} />
+                                )
+                            }
 
                             return (
-                            <SingleProduct 
-                            properties={existing_product[0]} 
-                            addToBag={this.addToBag} 
-                            decrease={this.decrease}
-                            product={product} 
-                            key={product.name + Math.random() + "_" + i++ + new Date()} />
+                                <SingleProduct 
+                                properties={ {name:'', id: '', qty: 0, price: 0}} 
+                                addToBag={this.addToBag} 
+                                product={product} 
+                                key={product.name + Math.random() + "_" + i++ + new Date()} />
                             )
-                        }
-
-                        return (
-                            <SingleProduct 
-                            properties={ {name:'', id: '', qty: 0, price: 0}} 
-                            addToBag={this.addToBag} 
-                            product={product} 
-                            key={product.name + Math.random() + "_" + i++ + new Date()} />
-                        )
-            
-                    })
-                }
+                
+                        })
+                    }
+                </div>
 
                 <div className="bag-product-list">
                     <ul className="bag-products">
@@ -156,11 +167,19 @@ class ProductList extends React.Component {
                         }
                     </ul>
 
-                    
+                    <div className="summary">
+                        <div className="top">
+                            <span>Items: { this.state.bag_products.length }</span>
+                            <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
+                        </div>
+                        <div className="bottom">
+                            <button>Order Now</button>
+                        </div>
+                    </div>
                 </div>
-                
-    
+
             </div>
+            
         )
     }
 
