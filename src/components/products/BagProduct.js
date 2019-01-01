@@ -5,13 +5,15 @@ class BagProduct extends Component {
         this.props.increase(id);
     }
 
-    decreaseQty = (e, id) =>{
-        this.props.decrease(id);
+    decreaseQty = (e, id, qty) =>{
+        this.props.decrease(id, qty);
+    }
 
+    close = (e, id) => {
+        this.props.decrease(id, 1);
     }
     render() {
         let product = this.props.product;
-        console.log('bag proguct : ', product)
         return (
             <li className="single-bag-product" >
                 <div className="action">
@@ -20,7 +22,7 @@ class BagProduct extends Component {
                     <i className="material-icons  ">exposure_plus_1</i>
                     </span>
                     <span 
-                    onClick={ (e)=> this.decreaseQty(e, product.id )}>
+                    onClick={ (e)=> this.decreaseQty(e, product.id, product.qty )}>
                     <i className="material-icons  ">exposure_neg_1</i>
                     </span>
 
@@ -37,6 +39,7 @@ class BagProduct extends Component {
                     ৳ {product.totalPrice}
 
                 </div>
+                <div onClick={e=>this.close(e, product.id)} className="cross">x</div>
             
             </li>
         )

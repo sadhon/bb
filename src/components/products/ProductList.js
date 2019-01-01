@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import BagProduct from './BagProduct';
-import { timingSafeEqual } from 'crypto';
 
 function existsInside(list, id){
     for(var i=0; i<list.length; i++){
@@ -27,8 +26,6 @@ class ProductList extends React.Component {
     state = {
         bag_products: []
     }
-
-
 
     // add to bag 
     addToBag = (product) => {
@@ -58,7 +55,6 @@ class ProductList extends React.Component {
 
 
     // increase product from bag 
-
     increase = (id) =>{
         const updated_bag = this.state.bag_products.map(bagProduct => {
             if(id === bagProduct.id){
@@ -78,23 +74,37 @@ class ProductList extends React.Component {
         )
     }
 
-    decrease = (id) =>{
-        const updated_bag = this.state.bag_products.map(bagProduct => {
-            if(id === bagProduct.id){
-                return {
-                    ...bagProduct,
-                    qty: bagProduct.qty - 1,
-                    totalPrice : (bagProduct.qty - 1) * bagProduct.price
+    decrease = (id, qty) =>{
 
+        // if bag product qty === 1 then no need to decrease just delete it
+        // otherwise decrease it
+
+        if(qty === 1){
+            const updated_bag = this.state.bag_products.filter(bagProduct => bagProduct.id !== id);
+            this.setState(
+                {bag_products : updated_bag}
+            )
+
+        }else{
+            const updated_bag = this.state.bag_products.map(bagProduct => {
+ 
+                if(id === bagProduct.id){
+                    return {
+                        ...bagProduct,
+                        qty: bagProduct.qty - 1,
+                        totalPrice : (bagProduct.qty - 1) * bagProduct.price
+                    }
                 }
-            }
+                return bagProduct;
+            });
+            
+            this.setState(
+                {bag_products : updated_bag}
+            )
 
-            return bagProduct;
-        })
+        }
 
-        this.setState(
-            {bag_products : updated_bag}
-        )
+
     }
 
     
@@ -102,7 +112,6 @@ class ProductList extends React.Component {
     render(){
 
         var i = 0;
-
         return (
             <div className="product-list">
                 {
@@ -115,6 +124,7 @@ class ProductList extends React.Component {
                             <SingleProduct 
                             properties={existing_product[0]} 
                             addToBag={this.addToBag} 
+                            decrease={this.decrease}
                             product={product} 
                             key={product.name + Math.random() + "_" + i++ + new Date()} />
                             )

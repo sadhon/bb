@@ -26,6 +26,13 @@ class SingleProduct extends React.Component {
 
     }
 
+    ///decrease qty
+    decreaseQty = ( e, id, qty ) => {
+        console.log('qty :   : ', qty);
+        this.props.decrease(id, qty);
+
+    }
+
 
 
     render(){
@@ -35,9 +42,14 @@ class SingleProduct extends React.Component {
                 <div className="card sticky-action">
                     <div className="card-image waves-effect waves-block waves-light">
                         <img className="activator" alt="hello" src={officeImg} />
-                        <span onClick={e=>this.handleClick(e, product.id, product.price, product.name)} className="btn-floating halfway-fab waves-effect waves-light green">
-                           {this.state.selected ? ( <i className="material-icons">check</i>) : ( <i className="material-icons">add</i>) }
-                            </span>
+                        {
+                            this.state.selected ? (
+                                <span className="btn-floating halfway-fab waves-effect waves-light green">
+                                    <i className="material-icons">check</i>
+                                </span>
+                            ): ('')
+                        }
+
 
                     </div>
                     <div className="card-content">
@@ -50,8 +62,15 @@ class SingleProduct extends React.Component {
                         <p>{product['desc']}</p>
                     </div>
                     <div className="card-action">
-                        <button className='btn'>Add</button>
-                        <button className='btn'>Subtract</button>
+                        <button   
+                        onClick={e=>this.handleClick(e, product.id, product.price, product.name)} >
+                            <i className="material-icons  ">exposure_plus_1</i>
+                        </button>
+                       
+                        <button  disabled={this.state.qty < 1}
+                        onClick={e=>this.decreaseQty(e, product.id, this.state.qty)}>
+                            <i className="material-icons  ">exposure_neg_1</i>
+                        </button>
                     </div>
                 </div>
             </div>
