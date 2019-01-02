@@ -391,13 +391,14 @@ button{
   font-size: 30px !important;
   height: 55px !important;
   line-height: 55px !important;
+  cursor: pointer;
 }
 .nav-wrapper{
   display: flex;
 }
 
 .nav-wrapper .logo{
-  width: 100px;
+  width: 50px;
 }
 
 .form-container{

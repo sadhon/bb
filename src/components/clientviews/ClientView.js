@@ -20,7 +20,8 @@ class ClientView extends React.Component {
     state = {
         bag_products: [],
         showBazarList : true,
-        showCatList: true
+        showCatList: true,
+        search: ""
     }
 
     update = (bagState) => {
@@ -42,6 +43,15 @@ class ClientView extends React.Component {
         })
     }
     
+
+    // fetch search text 
+    fetchSearchText = (text) =>{
+        this.setState({
+            search: text.toLowerCase()
+        }, ()=>{
+            console.log("search bar text : ", this.state.search);
+        })
+    }
 
     //toggle Bazar List
     toggleBazarList = () => {
@@ -121,39 +131,42 @@ class ClientView extends React.Component {
     }
 
     render(){
-        console.log('render: ', this.state.showCatList);
         return (
             
             <div className='main-part'>
                 <div className="">
-                    <Navbar toggleCatList={this.toggleCatList} />
+                    <Navbar toggleCatList={this.toggleCatList} fetchSearchText={this.fetchSearchText} />
                     <div className={" sidebar-container " + ( this.state.showCatList ? " left-0 " : " left-230 " ) }>
                             <CategoryList />
                     </div>
                        {/* content container */}
                     <div 
-                    className={"content-container " + ( this.state.showCatList ? " margin-left-230 " : " margin-left-0 " )}
-                    >
-                        <div className="product-ads">
-                            <img className='banar' src={banar} alt=""/>
-                        </div>
-        
-                        <div className="product-types-container">
-                            <ul className="li product-types">
-                                <li className="product-type"><Link to="/">Programming</Link></li>
-                                <li className="product-type"><Link to="/">Literature</Link></li>
-                                <li className="product-type"><Link to="/">Science</Link></li>
-                                <li className="product-type"><Link to="/">Religious</Link></li>
-                            </ul>
-                        </div>
+                    className={"content-container " + ( this.state.showCatList ? " margin-left-230 " : " margin-left-0 " )} >
+
+                        <div className='content-container-inner'>
+                            <div className="product-ads">
+                                <img className='banar' src={banar} alt=""/>
+                            </div>
+            
+                            <div className="product-types-container">
+                                <ul className="li product-types">
+                                    <li className="product-type"><Link to="/">Programming</Link></li>
+                                    <li className="product-type"><Link to="/">Literature</Link></li>
+                                    <li className="product-type"><Link to="/">Science</Link></li>
+                                    <li className="product-type"><Link to="/">Religious</Link></li>
+                                </ul>
+                            </div>
 
 
-                        {
-                            this.props.match.params.cat_sub ?
-                                (<ProductList update={this.update} productsInsideBag={this.state.bag_products} cat_sub={this.props.match.params.cat_sub} /> ) : 
-                               ( <p className="center-align">Select What type of product you need from side bar menu</p> )
-                            
-                        }
+                            {
+                                this.props.match.params.cat_sub ?
+                                    (<ProductList update={this.update} productsInsideBag={this.state.bag_products} search={this.state.search} cat_sub={this.props.match.params.cat_sub} /> ) : 
+                                ( <p className="center-align">Select What type of product you need from side bar menu</p> )
+                                
+                            }
+
+                        </div>
+
         
                     </div>
         
@@ -167,7 +180,7 @@ class ClientView extends React.Component {
                                 <div>          
                                     <div onClick={this.toggleBazarList} className="cross">
                                         {(
-                                            this.state.showBazarList ? "minimize" : "see bazar list"
+                                            this.state.showBazarList ? "close" : "see bazar Item('s)"
                                         )}
                                     </div>
                                     <span className='item'>Items: { this.state.bag_products.length }</span>
