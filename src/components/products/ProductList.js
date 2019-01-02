@@ -3,7 +3,6 @@ import SingleProduct from '../products/SingleProduct';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
-import BagProduct from './BagProduct';
 
 function existsInside(list, id){
     for(var i=0; i<list.length; i++){
@@ -20,21 +19,22 @@ function getExistingObj(list , id){
 
 }
 
-function getSubTotal(list){
-    var sum = 0;
-    for (let i = 0; i< list.length ; i++)
-    {
-        sum += list[i].totalPrice;
-    }
 
-    return sum;
-}
 
 class ProductList extends React.Component {
 
     state = {
         bag_products: []
     }
+
+    
+    componentWillReceiveProps = (nextProps) => {
+        this.setState(
+            { bag_products: nextProps.productsInsideBag }
+        )
+      }
+    
+    
 
     // add to bag 
     addToBag = (product) => {
@@ -53,11 +53,15 @@ class ProductList extends React.Component {
 
             this.setState({
                 bag_products : bagProducts
+            }, function(){
+                this.props.update(this.state.bag_products);
             })
 
         }else{ // if not exist just add it
             this.setState({
                 bag_products : [ ...this.state.bag_products, {...product, totalPrice: product.price }]
+            }, function(){
+                this.props.update(this.state.bag_products);
             });
         }
     }
@@ -79,7 +83,9 @@ class ProductList extends React.Component {
         })
 
         this.setState(
-            {bag_products : updated_bag}
+            {bag_products : updated_bag}, function(){
+                this.props.update(this.state.bag_products);
+            }
         )
     }
 
@@ -91,7 +97,9 @@ class ProductList extends React.Component {
         if(qty === 1){
             const updated_bag = this.state.bag_products.filter(bagProduct => bagProduct.id !== id);
             this.setState(
-                {bag_products : updated_bag}
+                {bag_products : updated_bag}, function(){
+                    this.props.update(this.state.bag_products);
+                }
             )
 
         }else{
@@ -108,17 +116,17 @@ class ProductList extends React.Component {
             });
             
             this.setState(
-                {bag_products : updated_bag}
+                {bag_products : updated_bag}, function(){
+                    this.props.update(this.state.bag_products);
+                }
             )
-
         }
-
-
     }
 
     
 
     render(){
+
 
         var i = 0;
         return (
@@ -151,33 +159,6 @@ class ProductList extends React.Component {
                         })
                     }
                 </div>
-
-                <div className="bag-product-list">
-                    <ul className="bag-products">
-                        {
-                            this.state.bag_products && this.state.bag_products.map( product => {
-                                return (
-                                    <BagProduct 
-                                    increase={this.increase} 
-                                    decrease={this.decrease} 
-                                    product={product} 
-                                    key={product.id} /> 
-                                    )
-                            })
-                        }
-                    </ul>
-
-                    <div className="summary">
-                        <div className="top">
-                            <span>Items: { this.state.bag_products.length }</span>
-                            <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
-                        </div>
-                        <div className="bottom">
-                            <button>Order Now</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             
         )
