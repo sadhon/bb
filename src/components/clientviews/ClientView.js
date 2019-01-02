@@ -18,12 +18,20 @@ function getSubTotal(list){
 
 class ClientView extends React.Component {
     state = {
-        bag_products: []
+        bag_products: [],
+        showCart : true
     }
 
     update = (bagState) => {
         this.setState({
             bag_products: bagState
+        })
+    }
+
+    toggleCart = () => {
+        this.setState({
+            ...this.state,
+            showCart: !this.state.showCart
         })
     }
 
@@ -48,6 +56,8 @@ class ClientView extends React.Component {
         )
     }
 
+
+    // decrease by id
     decrease = (id, qty) =>{
 
         // if bag product qty === 1 then no need to decrease just delete it
@@ -112,35 +122,49 @@ class ClientView extends React.Component {
                     </div>
         
         
-                        {/* bazar bag */}
-        
-                    <div className="bag-product-list">
-                            <ul className="bag-products">
-                                {
-                                    this.state.bag_products && this.state.bag_products.map( product => {
-                                        return (
-                                            <BagProduct 
-                                            increase={this.increase} 
-                                            decrease={this.decrease} 
-                                            product={product} 
-                                            key={product.id} /> 
-                                            )
-                                    })
-                                }
-                            </ul>
-        
-                            <div className="summary">
-                                <div className="top">
-                                    <span>Items: { this.state.bag_products.length }</span>
-                                    <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
-                                </div>
-                                <div className="bottom">
-                                    <button>Order Now</button>
-                                </div>
+                    {/* bazar bag */}
+                    <div
+                    className={"bag-product-list "  +( this.state.showCart ? " hide" : " show" )} >
+                        <div onClick={this.toggleCart} className="cross">close</div>
+
+                        <ul className="bag-products">
+                            {
+                                this.state.bag_products && this.state.bag_products.map( product => {
+                                    return (
+                                        <BagProduct 
+                                        increase={this.increase} 
+                                        decrease={this.decrease} 
+                                        product={product} 
+                                        key={product.id} /> 
+                                        )
+                                })
+                            }
+                        </ul>
+    
+                        <div className="summary">
+                            <div className="top">
+                                <span>Items: { this.state.bag_products.length }</span>
+                                <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
+                            </div>
+                            <div className="bottom">
+                                <button>Order Now</button>
                             </div>
                         </div>
-        
-                    
+                    </div>
+                    {/* End bazar bag here */}
+
+                    <div 
+                    onClick={this.toggleCart}
+                    className={"shopping-cart "  +( this.state.showCart ? " show" : " hide" )}>
+                        <div className="cart-icon">
+                            <i className="material-icons">shopping_cart</i>
+                            <span> { this.state.bag_products.length } </span>
+                        </div>
+                        <div className="subtotal">
+                            ৳ {getSubTotal(this.state.bag_products)} <br />
+                            <button>Check and Order</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -194,9 +194,11 @@ select {
 .product-type a:hover{  
   text-decoration: underline;
 }
-.bag-products{
-  display: block;
 
+.bag-products {
+  display: block;
+  max-height: calc(100vh - 300px);
+  overflow: hidden;
 }
 .bag-product-list {
   display: block;
@@ -216,10 +218,9 @@ select {
   padding: 4px;
   background: #fff;
   box-sizing: border-box;
-  margin: 5px 1px 1px;
+  margin: 1px 3px;
   position: relative;
   overflow: hidden;
-
 }
 
 .cross {
@@ -282,7 +283,7 @@ button{
   color: #fff;
 }
 .top{
-  background: #0f5369;
+  color: #000;
 
 }
 .top span{
@@ -298,3 +299,46 @@ button{
   text-align: right;
 }
 
+.bottom button {
+  cursor: pointer;
+  background: #25488a;
+  color: #fff;
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
+
+/* shopping cart */
+.shopping-cart {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 70px;
+}
+
+.cart-icon .material-icons {
+  font-size: 70px;
+  color: #444444;
+}
+.cart-icon{
+  position: relative;
+}
+.cart-icon span {
+  display: block;
+  position: absolute;
+  color: #ded0d0;
+  top: 13px;
+  right: 30px;
+  font-size: 18px;
+}
+.subtotal{
+  text-align: center;
+}
+.subtotal button{
+  font-size: 12px;
+}
+.show{
+  display: block;
+}
