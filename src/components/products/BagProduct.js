@@ -35,7 +35,7 @@ class BagProduct extends Component {
 
                 <div className="qty-price">
                     qty: {product.qty} <br />
-                    ৳ {product.totalPrice}
+                    ৳ {product.totalPrice.toFixed(2)}
 
                 </div>
                 <div onClick={e=>this.close(e, product.id)} className="cross">x</div>

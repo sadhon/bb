@@ -13,13 +13,13 @@ function getSubTotal(list){
         sum += list[i].totalPrice;
     }
 
-    return sum;
+    return sum.toFixed(2);
 }
 
 class ClientView extends React.Component {
     state = {
         bag_products: [],
-        showCart : true
+        showBazarList : true
     }
 
     update = (bagState) => {
@@ -28,11 +28,20 @@ class ClientView extends React.Component {
         })
     }
 
-    toggleCart = () => {
+    //toggle Bazar List
+    toggleBazarList = () => {
         this.setState({
             ...this.state,
-            showCart: !this.state.showCart
+            showBazarList: !this.state.showBazarList
         })
+    }
+
+    // handle order
+    handleOrder = () => {
+        if(this.state.bag_products.length < 1 )
+        {
+            alert("Your bazar bag is empty. Please Choose items before placing an order.. Thanks");
+        }
     }
 
 
@@ -124,10 +133,20 @@ class ClientView extends React.Component {
         
                     {/* bazar bag */}
                     <div
-                    className={"bag-product-list "  +( this.state.showCart ? " hide" : " show" )} >
-                        <div onClick={this.toggleCart} className="cross">close</div>
-
-                        <ul className="bag-products">
+                    className="bag-product-list "  >
+                        {
+                            this.state.bag_products.length > 0 ? 
+                            (                   
+                                <div onClick={this.toggleBazarList} className="cross">
+                                    {(
+                                        this.state.showBazarList ? "minimize bazar list" : "see bazar list"
+                                    )}
+                                </div>
+                            ) : ("")
+                        }
+         
+                        <ul 
+                        className={"bag-products"  + ( this.state.showBazarList ? " show" : " hide" )}>
                             {
                                 this.state.bag_products && this.state.bag_products.map( product => {
                                     return (
@@ -147,24 +166,12 @@ class ClientView extends React.Component {
                                 <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
                             </div>
                             <div className="bottom">
-                                <button>Order Now</button>
+                                <button onClick={this.handleOrder}>Order Now</button>
                             </div>
                         </div>
                     </div>
                     {/* End bazar bag here */}
 
-                    <div 
-                    onClick={this.toggleCart}
-                    className={"shopping-cart "  +( this.state.showCart ? " show" : " hide" )}>
-                        <div className="cart-icon">
-                            <i className="material-icons">shopping_cart</i>
-                            <span> { this.state.bag_products.length } </span>
-                        </div>
-                        <div className="subtotal">
-                            ৳ {getSubTotal(this.state.bag_products)} <br />
-                            <button>Check and Order</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         )

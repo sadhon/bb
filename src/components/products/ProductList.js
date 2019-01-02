@@ -27,7 +27,7 @@ class ProductList extends React.Component {
         bag_products: []
     }
 
-    
+
     componentWillReceiveProps = (nextProps) => {
         this.setState(
             { bag_products: nextProps.productsInsideBag }
