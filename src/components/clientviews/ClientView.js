@@ -19,7 +19,8 @@ function getSubTotal(list){
 class ClientView extends React.Component {
     state = {
         bag_products: [],
-        showBazarList : true
+        showBazarList : true,
+        showCatList: true
     }
 
     update = (bagState) => {
@@ -28,12 +29,34 @@ class ClientView extends React.Component {
         })
     }
 
+    // set into local storage
+    componentWillUpdate = (nextProps, nextState) => {
+        localStorage.setItem('bag_products', JSON.stringify(nextState.bag_products));
+      
+    }
+
+    //get from local storage
+    componentWillMount = () => {
+        localStorage.getItem('bag_products') && this.setState({
+            bag_products: JSON.parse(localStorage.getItem('bag_products'))
+        })
+    }
+    
+
     //toggle Bazar List
     toggleBazarList = () => {
         this.setState({
             ...this.state,
             showBazarList: !this.state.showBazarList
         })
+    }
+
+    toggleCatList = () => {
+        this.setState({
+            ...this.state,
+            showCatList : !this.state.showCatList
+
+        }, function(){console.log("showcatlist: ", this.state.showCatList)})
     }
 
     // handle order
@@ -98,15 +121,19 @@ class ClientView extends React.Component {
     }
 
     render(){
+        console.log('render: ', this.state.showCatList);
         return (
+            
             <div className='main-part'>
                 <div className="">
-                    <Navbar />
-                    <div className="sidebar-container">
+                    <Navbar toggleCatList={this.toggleCatList} />
+                    <div className={" sidebar-container " + ( this.state.showCatList ? " left-0 " : " left-230 " ) }>
                             <CategoryList />
                     </div>
                        {/* content container */}
-                    <div className="content-container">
+                    <div 
+                    className={"content-container " + ( this.state.showCatList ? " margin-left-230 " : " margin-left-0 " )}
+                    >
                         <div className="product-ads">
                             <img className='banar' src={banar} alt=""/>
                         </div>
@@ -136,17 +163,22 @@ class ClientView extends React.Component {
                     className="bag-product-list "  >
                         {
                             this.state.bag_products.length > 0 ? 
-                            (                   
-                                <div onClick={this.toggleBazarList} className="cross">
-                                    {(
-                                        this.state.showBazarList ? "minimize bazar list" : "see bazar list"
-                                    )}
-                                </div>
+                            (    
+                                <div>          
+                                    <div onClick={this.toggleBazarList} className="cross">
+                                        {(
+                                            this.state.showBazarList ? "minimize" : "see bazar list"
+                                        )}
+                                    </div>
+                                    <span className='item'>Items: { this.state.bag_products.length }</span>
+                                </div>     
                             ) : ("")
                         }
+
          
                         <ul 
                         className={"bag-products"  + ( this.state.showBazarList ? " show" : " hide" )}>
+                        
                             {
                                 this.state.bag_products && this.state.bag_products.map( product => {
                                     return (
@@ -161,12 +193,22 @@ class ClientView extends React.Component {
                         </ul>
     
                         <div className="summary">
-                            <div className="top">
-                                <span>Items: { this.state.bag_products.length }</span>
-                                <span>SubTotal : ৳ {getSubTotal(this.state.bag_products)}</span>
-                            </div>
                             <div className="bottom">
-                                <button onClick={this.handleOrder}>Order Now</button>
+                                {
+                                    this.state.bag_products.length > 0 ?
+                                    (
+                                        <div>
+                                            <button onClick={this.handleOrder}>Order Now</button>
+                                            <span>  ৳  {getSubTotal(this.state.bag_products)}</span>
+                                        </div>
+                                        
+                                    )
+                                    :
+                                    (
+                                        <Link to="/education_old_book" className="start-bazar">Start bazar</Link>
+                                    )
+                                }
+                                
                             </div>
                         </div>
                     </div>
