@@ -489,3 +489,24 @@ button.search-submit i {
   right: 5px;
   top: 16px;
 }
+
+/* auth style */
+div#firebaseui_container {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  background-color: rgba(0,0,0, .7);
+}
+
+.firebaseui-card-content, .firebaseui-card-footer {
+  padding: 0 ;
+}
+
+.firebaseui-container {
+  background: #fff !important;
+}
