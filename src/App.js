@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {HashRouter , Switch, Route} from 'react-router-dom';
 import ClientView from './components/clientviews/ClientView';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateSubCat from './components/category/CreateSubCat';
@@ -10,7 +10,7 @@ import CreateProduct from './components/products/CreateProduct';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter >
         <div className="App">
           <Switch>
             <Route path="/dashboard/create/product" component={CreateProduct} />
@@ -22,7 +22,7 @@ class App extends Component {
             <Route path="/" component={ClientView} />
           </Switch>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
