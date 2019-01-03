@@ -44,16 +44,22 @@ class SingleProduct extends React.Component {
                         <img className="activator" alt="hello" src={officeImg} />
                         {
                             this.state.selected ? (
-                                <span className="btn-floating halfway-fab waves-effect waves-light green">
-                                    <i className="material-icons">check</i>
-                                </span>
+                                
+                                    <span className="btn-floating halfway-fab waves-effect waves-light pink">
+                                        <div className="qty-container">
+                                            <i className="material-icons">check</i>
+                                            <span className="qty">{this.state.qty}</span>
+                                        </div>
+                                    </span>
+                                   
+                                
                             ): ('')
                         }
 
                     </div>
                     <div className="card-content">
                         <span className="card-title activator grey-text text-darken-4">{ product.name }</span>
-                        <p> <span className="price"> ৳ { product.price } </span> ( per {product.perUnit + " " + product.measurementUnit} ) </p>
+                        <p> <span className="price"> ৳ { product.price } / </span> <span className="per-unit">  {product.perUnit + " " + product.measurementUnit} </span> </p>
                     </div>
 
 
@@ -70,8 +76,6 @@ class SingleProduct extends React.Component {
                         onClick={e=>this.handleClick(e, product.id, product.price, product.name)} >
                             <i className="material-icons  ">exposure_plus_1</i>
                         </button>
-
-                        <p className="left"> qty:  {this.state.qty}</p>
                        
                         <button 
                         title="remove from bag"

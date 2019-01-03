@@ -177,8 +177,8 @@ class ClientView extends React.Component {
                         {
                             this.state.bag_products.length > 0 ? 
                             (    
-                                <div>          
-                                    <div onClick={this.toggleBazarList} className="cross">
+                                <div className="bag-header"  onClick={this.toggleBazarList} >          
+                                    <div className="cross">
                                         {(
                                             this.state.showBazarList ? "close" : "see bazar Item('s)"
                                         )}
