@@ -242,7 +242,7 @@ select {
 .bag-product-list .cross {
   top: 5px;
   font-size: 13px;
-  right: 10px;
+  right: 25px;
 }
 
 .item{
@@ -262,8 +262,8 @@ select {
 
 .single-bag-product .cross {
   position: absolute;
-  right: 0px;
-  top: 0px;
+  right: 15px;
+  top: 6px;
   font-size: 14px;
   cursor: pointer;
   border: 1px solid black;
@@ -457,7 +457,7 @@ button.search-submit i {
 /* bag style */
 .bag-header{
   display: block;
-  background: #793988;
+  background: #4267B2;
   box-sizing: border-box;
   color: #fff;
   padding: 3px;
@@ -491,7 +491,7 @@ button.search-submit i {
 }
 
 /* auth style */
-div#firebaseui_container {
+.styled-firebase-auth-container {
   display: flex;
   position: fixed;
   top: 0;
@@ -500,13 +500,67 @@ div#firebaseui_container {
   left: 0;
   right: 0;
   align-items: center;
+  justify-content: center;
   background-color: rgba(0,0,0, .7);
+  z-index: 9999999;
 }
 
-.firebaseui-card-content, .firebaseui-card-footer {
-  padding: 0 ;
-}
+
 
 .firebaseui-container {
   background: #fff !important;
+  display: block;
+  padding: 50px 20px;
+  min-width: 300px;
+}
+
+input:not([type]):focus:not([readonly]), 
+input[type=text]:not(.browser-default):focus:not([readonly]), 
+input[type=password]:not(.browser-default):focus:not([readonly]), 
+input[type=email]:not(.browser-default):focus:not([readonly]), 
+input[type=url]:not(.browser-default):focus:not([readonly]), 
+input[type=time]:not(.browser-default):focus:not([readonly]), 
+input[type=date]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]), 
+input[type=number]:not(.browser-default):focus:not([readonly]), 
+input[type=tel]:not(.browser-default):focus:not([readonly])
+{
+  border-bottom: 1px solid transparent;
+  -webkit-box-shadow: 0 1px 0 0 transparent;
+  box-shadow: 0 1px 0 0 transparent;
+}
+
+/* footer style */
+.footer-links {
+  margin-top: 30px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: #777171;
+  font-weight: 400;
+}
+
+ul.category{
+  border-bottom: 1px solid #ddd;
+}
+
+.navbar-links span{
+  display: inline-block;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.sing-out-container{
+  display: flex;
+  align-items: center;
+}
+
+.sing-out-container img{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  display: block;
+  margin-right: 10px;
 }

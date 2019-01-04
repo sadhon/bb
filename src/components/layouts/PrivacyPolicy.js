@@ -1,8 +1,11 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 
 const PrivacyPolicy = () => {
   return (
     <div className="container">
+        <Link to="/">Go to homepage</Link>
+        
         <h1>Privacy Policy</h1>
 
 

@@ -5,6 +5,8 @@ import banar from '../../img/banar.jpg'
 import ProductList from '../products/ProductList';
 import {Link} from 'react-router-dom';
 import BagProduct from '../products/BagProduct'
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import firebase from '../../config/fbConfig';
 
 function getSubTotal(list){
     var sum = 0;
@@ -21,7 +23,9 @@ class ClientView extends React.Component {
         bag_products: [],
         showBazarList : true,
         showCatList: true,
-        search: ""
+        search: "",
+        isSignedIn: false,
+        signInClicked: false
     }
 
     update = (bagState) => {
@@ -29,6 +33,57 @@ class ClientView extends React.Component {
             bag_products: bagState
         })
     }
+
+
+    //outh related codes 
+
+    uiConfig = {
+        signInFlow: "popup",
+        signInSuccessUrl: '/',
+        signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+
+        {
+            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+            recaptchaParameters: {
+            type: 'image', // 'audio'
+            size: 'normal', // 'invisible' or 'compact'
+            badge: 'bottomleft' //' bottomright' or 'inline' applies to invisible.
+            },
+            defaultCountry: 'BD',
+            loginHint: '+8801XXXXXXXXX'
+        }
+
+        ]
+    }
+
+
+    componentWillMount = () => {
+    firebase.auth().onAuthStateChanged(user => {
+        this.setState(
+            { isSignedIn : !! user }
+        )
+    })
+    }
+
+    controlSingIn = () => {
+        this.setState({
+            ...this.state,
+            signInClicked: true
+
+        })
+    }
+
+    hideFirebaseUi = (e) => {
+
+        this.setState({
+            ...this.state,
+            signInClicked: false
+
+        })
+    }
+
 
     // set into local storage
     componentWillUpdate = (nextProps, nextState) => {
@@ -131,33 +186,30 @@ class ClientView extends React.Component {
     }
 
     render(){
+        if(this.props.match.params.pp){
+            alert(this.props.match.params.pp);
+        }
         return (
             
             <div className='main-part'>
                 <div className="">
-                    <Navbar toggleCatList={this.toggleCatList} fetchSearchText={this.fetchSearchText} />
+                    <Navbar  controlSingIn={this.controlSingIn} toggleCatList={this.toggleCatList} fetchSearchText={this.fetchSearchText} />
                     <div className={" sidebar-container " + ( this.state.showCatList ? " left-0 " : " left-230 " ) }>
                             <CategoryList />
                     </div>
+
+                    
+
+
                        {/* content container */}
                     <div 
                     className={"content-container " + ( this.state.showCatList ? " margin-left-230 " : " margin-left-0 " )} >
-
+       
                         <div className='content-container-inner'>
                             <div className="product-ads">
                                 <img className='banar' src={banar} alt=""/>
                             </div>
             
-                            <div className="product-types-container">
-                                <ul className="li product-types">
-                                    <li className="product-type"><Link to="/">Programming</Link></li>
-                                    <li className="product-type"><Link to="/">Literature</Link></li>
-                                    <li className="product-type"><Link to="/">Science</Link></li>
-                                    <li className="product-type"><Link to="/">Religious</Link></li>
-                                </ul>
-                            </div>
-
-
                             {
                                 this.props.match.params.cat_sub ?
                                     (<ProductList update={this.update} productsInsideBag={this.state.bag_products} search={this.state.search} cat_sub={this.props.match.params.cat_sub} /> ) : 
@@ -226,6 +278,24 @@ class ClientView extends React.Component {
                         </div>
                     </div>
                     {/* End bazar bag here */}
+
+
+                    {/* Start Oauth provider */}
+
+                    {
+                        this.state.signInClicked && !this.state.isSignedIn ? (
+                            <div onClick={(e) => this.hideFirebaseUi(e)} className="styled-firebase-auth-container">
+                                <StyledFirebaseAuth 
+                                uiConfig={this.uiConfig}
+                                firebaseAuth={firebase.auth()}
+                                />
+                            </div>
+
+
+                        ): ('')
+                    }
+
+                    
 
                 </div>
             </div>

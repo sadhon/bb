@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import Footer from '../layouts/Footer'
 
 const CategoryList = ({categories}) => {
     return (
@@ -34,6 +35,7 @@ const CategoryList = ({categories}) => {
                 }
 
             </ul>
+            <Footer />
         </div>
     )
 }

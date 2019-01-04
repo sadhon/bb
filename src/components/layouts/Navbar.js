@@ -1,10 +1,23 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import firebase from '../../config/fbConfig'
 
 
 class Navbar extends React.Component {
     state = {
         text : ''
+    }
+
+    singIn = () =>{
+        this.props.controlSingIn();
+    }
+
+    signOut = () => {
+        firebase.auth().signOut().then(()=>{
+            this.setState(this.state)
+        });
+        
+        
     }
 
     handleClick = () => {
@@ -20,6 +33,10 @@ class Navbar extends React.Component {
     }
 
     render(){
+
+        var user = firebase.auth().currentUser;
+
+   
         return (
             <nav className="navbar">
                 <div className="nav-wrapper">
@@ -27,18 +44,22 @@ class Navbar extends React.Component {
                         <i className="material-icons"  onClick={this.handleClick} >menu</i>
                     </div>
                     <div className="logo">
-                        <Link to="/" >Logo</Link>
+                        <Link to="/"  >Logo</Link>
                     </div>
                     <div className="form-container">
                         <form className="search-form">
                             <input onChange={ this.handleChange } className="search-box" type="text" placeholder="Search for your product" />
                         </form>
                     </div>
-                    <ul  className=" navbar-links">
-                        <li><a href="sass.html">Sass</a></li>
-                        <li><a href="badges.html">Components</a></li>
-                        <li><a href="collapsible.html">JavaScript</a></li>
-                    </ul>
+                    <div  className=" navbar-links">
+                        {
+                            user ? (<div className="sing-out-container"> <span onClick={this.signOut}>Sign out</span> <img src={user.photoURL} alt="profile" /> </div>)
+                            :(<span onClick={this.singIn} >Sign in</span>)
+                        }
+                               
+                                
+                        
+                    </div>
                 </div>
             </nav>
         )
