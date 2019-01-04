@@ -45,7 +45,7 @@ class SingleProduct extends React.Component {
                         {
                             this.state.selected ? (
                                 
-                                    <span className="btn-floating halfway-fab waves-effect waves-light pink">
+                                    <span className="btn-floating halfway-fab waves-effect waves-light">
                                         <div className="qty-container">
                                             <i className="material-icons">check</i>
                                             <span className="qty">{this.state.qty}</span>

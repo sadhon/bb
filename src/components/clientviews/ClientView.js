@@ -186,9 +186,7 @@ class ClientView extends React.Component {
     }
 
     render(){
-        if(this.props.match.params.pp){
-            alert(this.props.match.params.pp);
-        }
+
         return (
             
             <div className='main-part'>

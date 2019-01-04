@@ -1,6 +1,5 @@
 
 const categoryReducer = (state={}, action) => {
-  console.log(state)
   switch(action.type){
     case 'SUBCAT_DELETED':
       console.log(state)

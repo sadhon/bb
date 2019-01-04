@@ -108,6 +108,7 @@ select {
   position: absolute;
   right: 0px;
   bottom: 0px;
+  background: #4267B2;
 }
 .banar {
   display: block;
