@@ -78,8 +78,8 @@ class SingleProduct extends React.Component {
                         </button>
                        
                         <button 
-                        title="remove from bag"
-                        className="right" 
+                        title={ (this.state.qty < 1 ? " Nothing to remove ":" Remove from bag ") }
+                        className={"right" + (this.state.qty < 1 ? " disabled ":" nothing ") }  
                         disabled={this.state.qty < 1}
                         onClick={e=>this.decreaseQty(e, product.id, this.state.qty)}>
                             <i className="material-icons  ">exposure_neg_1</i>

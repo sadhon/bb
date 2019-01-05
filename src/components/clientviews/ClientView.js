@@ -7,6 +7,9 @@ import {Link} from 'react-router-dom';
 import BagProduct from '../products/BagProduct'
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from '../../config/fbConfig';
+import {placeOrder} from '../../store/actions/orderActions'
+import {connect} from 'react-redux'
+
 
 function getSubTotal(list){
     var sum = 0;
@@ -39,7 +42,7 @@ class ClientView extends React.Component {
 
     uiConfig = {
         signInFlow: "popup",
-        signInSuccessUrl: '/',
+        signInSuccessUrl: '/#/create-user',
         signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -129,6 +132,16 @@ class ClientView extends React.Component {
         if(this.state.bag_products.length < 1 )
         {
             alert("Your bazar bag is empty. Please Choose items before placing an order.. Thanks");
+        }else if(firebase.auth().currentUser){
+            console.log('bag products: ', this.state.bag_products)
+            this.props.placeOrder(this.state.bag_products, firebase.auth().currentUser.uid);
+            this.setState({
+                ...this.state,
+                bag_products: []
+            }, localStorage.setItem('bag_products', JSON.stringify(this.state.bag_products)))
+            
+        }else{
+
         }
     }
 
@@ -293,8 +306,6 @@ class ClientView extends React.Component {
                         ): ('')
                     }
 
-                    
-
                 </div>
             </div>
         )
@@ -303,4 +314,10 @@ class ClientView extends React.Component {
   
 }
 
-export default ClientView
+const mapDispatchToProps = (dispatch) => {
+    return {
+        placeOrder : (order, id)=>dispatch(placeOrder(order, id))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ClientView)

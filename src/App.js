@@ -8,6 +8,7 @@ import UpdateCategory from './components/category/UpdateCategory';
 import CreateProduct from './components/products/CreateProduct';
 import PrivacyPolicy from './components/layouts/PrivacyPolicy';
 import TermsOfServices from './components/layouts/TermsOfServices'
+import CreateUser from './components/user/CreateUser'
 
 
 class App extends Component {
@@ -25,6 +26,7 @@ class App extends Component {
             <Route exact path="/dashboard" component={Dashboard} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-services" component={TermsOfServices} />
+            <Route path="/create-user" component={CreateUser} />
             <Route path="/:cat_sub" component={ClientView} />
             <Route path="/" component={ClientView} />
           </Switch>

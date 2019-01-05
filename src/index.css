@@ -121,8 +121,17 @@ select {
   padding: 5px 10px;
 }
 
-.card .card-action button{
+.card .card-action button {
   width: 50px;
+  border: 1px solid transparent;
+  background: #4267B2;
+  color: #fff;
+}
+
+.card .card-action button.disabled{
+  background: #68a3ef;
+  border: 1px solid transparent;
+  cursor: not-allowed;
 }
 
 .card .card-content {
