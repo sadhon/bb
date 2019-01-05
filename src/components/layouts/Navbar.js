@@ -53,7 +53,7 @@ class Navbar extends React.Component {
                     </div>
                     <div  className=" navbar-links">
                         {
-                            user ? (<div className="sing-out-container"> <span onClick={this.signOut}>Sign out</span> <img src={user.photoURL} alt="profile" /> </div>)
+                            user && user.photoURL ? (<div className="sing-out-container"> <span onClick={this.signOut}>Sign out</span> <img src={user.photoURL} alt="profile" /> </div>)
                             :(<span onClick={this.singIn} >Sign in</span>)
                         }
                                

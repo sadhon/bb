@@ -10,7 +10,7 @@ export const addProduct = (product) => {
             measurementUnit: product.measurementUnit,
             price: parseFloat(parseFloat(product.price).toFixed(2)),
             perUnit: parseInt(product.perUnit),
-            subCat: product.subCat,
+            subCat: product.subCat.trim().replace(' ', '-'),
             keywords: product.keywords.trim().toLowerCase().split(","),
             url: product.url,
             imageName: product.imageName,

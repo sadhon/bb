@@ -87,6 +87,10 @@ class ClientView extends React.Component {
         })
     }
 
+    stopThePropagation = (e) => {
+        e.stopPropagation()
+    }
+
 
     // set into local storage
     componentWillUpdate = (nextProps, nextState) => {
@@ -141,6 +145,7 @@ class ClientView extends React.Component {
             }, localStorage.setItem('bag_products', JSON.stringify(this.state.bag_products)))
             
         }else{
+            alert("Please Login first then order....");
 
         }
     }
@@ -226,7 +231,21 @@ class ClientView extends React.Component {
             
                             {
                                 this.props.match.params.subCat ?
-                                    (<ProductList update={this.update} productsInsideBag={this.state.bag_products} search={this.state.search} subCat={this.props.match.params.subCat} /> ) : 
+                                    (
+                                        <div>
+                                            <div className="header-container">
+                                                <span></span>
+                                                <h3>{this.props.match.params.subCat.replace('-', ' ')}</h3>
+                                                <span></span>
+                                            </div>
+                                            <ProductList 
+                                            update={this.update} 
+                                            productsInsideBag={this.state.bag_products} 
+                                            search={this.state.search} 
+                                            subCat={this.props.match.params.subCat} /> 
+                                        </div>
+
+                                        ) : 
                                 ( <p className="center-align">Select What type of product you need from side bar menu</p> )
                                 
                             }
@@ -299,10 +318,13 @@ class ClientView extends React.Component {
                     {
                         this.state.signInClicked && !this.state.isSignedIn ? (
                             <div onClick={(e) => this.hideFirebaseUi(e)} className="styled-firebase-auth-container">
-                                <StyledFirebaseAuth 
-                                uiConfig={this.uiConfig}
-                                firebaseAuth={firebase.auth()}
-                                />
+                                <div onClick={(e)=>this.stopThePropagation(e)}>
+                                    <StyledFirebaseAuth 
+                                    uiConfig={this.uiConfig}
+                                    firebaseAuth={firebase.auth()}
+                                    />
+                                </div>
+
                             </div>
 
 

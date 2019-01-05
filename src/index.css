@@ -98,7 +98,8 @@ select {
 
 .single-product img{
   transition: all .3s;
-  max-height: 120px;
+  height: 100px;
+  width: 100%;
 }
 
 .single-product:hover img {
@@ -106,10 +107,15 @@ select {
 }
 .btn-floating.halfway-fab {
   position: absolute;
-  right: 0px;
+  right: 8px;
   bottom: 0px;
   background: #4267B2;
 }
+
+.card .card-action button:hover {
+  background: #25488A;
+}
+
 .banar {
   display: block;
   width: 60%;
@@ -119,6 +125,7 @@ select {
 
 .card .card-action {
   padding: 5px 10px;
+  border-top: 1px solid #b7c8ec;
 }
 
 .card .card-action button {
@@ -267,7 +274,7 @@ select {
   box-sizing: border-box;
   margin: 1px 3px;
   position: relative;
-  overflow: hidden;
+  display: flex;
 }
 
 .single-bag-product .cross {
@@ -291,10 +298,7 @@ select {
   cursor: pointer;
 }
 .action {
-  width: 25px;
-  overflow: hidden;
-  display: block;
-  float: left;
+  flex: 0 0 30px
 }
 
 .action button {
@@ -302,18 +306,18 @@ select {
   cursor: pointer;
   border: 1px solid #b1a8a8;
   text-align: center;
-  margin-bottom: 5px;
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   padding: 0;
+}
+.action button:first-child{
+  margin-bottom: 10px;
 }
 
 .action .material-icons {
   font-size: 17px;
 }
 .product-details {
-  float: left;
-  width: 160px;
   padding: 5px;
   box-sizing: border-box;
   font-size: 13px;
@@ -322,10 +326,11 @@ select {
   overflow: hidden;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
+  flex-grow: 1;
 }
+
 .qty-price {
-  float: left;
-  width: 100px;
+  flex: 0 0 100px;
   box-sizing: border-box;
   padding: 0 5px;
   font-size: 14px;
@@ -415,6 +420,12 @@ button{
   max-height: 55px;
   line-height: 55px;
 }
+.nav-wrapper{
+  display: flex;
+}
+.menu {
+	flex: 0 0 46px;
+}
 .menu i {
   margin: 0 8px;
   font-size: 30px !important;
@@ -422,9 +433,11 @@ button{
   line-height: 55px !important;
   cursor: pointer;
 }
-.nav-wrapper{
-  display: flex;
+.nav-wrapper .logo {
+	flex: 0 0 auto;
 }
+
+
 
 .nav-wrapper .logo{
   width: 50px;
@@ -542,6 +555,9 @@ input[type=tel]:not(.browser-default):focus:not([readonly])
 }
 
 /* footer style */
+.footer {
+  margin-bottom: 70px;
+}
 .footer-links {
   margin-top: 30px;
 }
@@ -561,6 +577,9 @@ ul.category{
   margin-right: 20px;
   cursor: pointer;
 }
+.navbar-links {
+	flex: 0 0 100px;
+}
 .sing-out-container{
   display: flex;
   align-items: center;
@@ -573,4 +592,110 @@ ul.category{
   border: 1px solid #fff;
   display: block;
   margin-right: 10px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.header-container span {
+  flex-grow: 1;
+  height: 1px;
+  background: #b7c8ec;
+}
+.header-container h3 {
+  flex: 0 0 auto;
+  text-transform: capitalize;
+  margin:0;
+  padding:0 15px;
+  font-weight: 400;
+  font-size: 17px;
+  border-left: 2px solid #b7c8ec;
+  border-right: 2px solid #b7c8ec;
+  
+}
+/* Responsive design */
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  
+  
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  
+  
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  
+  
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  
+  
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+  
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .banar{
+    width: 95%;
+  }
+  .bag-product-list{
+    width: 100%;
+  }
+  form.search-form {
+    margin-left: 5px;
+  }
+
+  .form-container {
+    margin-right: 10px;
+  }
+  .content-container {
+    margin-left: 0 !important;
+  }
+  .sing-out-container img {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+  }
+  .navbar-links span{
+    margin-right: 5px;
+  }
 }
