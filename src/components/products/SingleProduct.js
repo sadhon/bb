@@ -1,6 +1,4 @@
 import React from 'react';
-import officeImg from '../../img/office.jpg';
-
 
 class SingleProduct extends React.Component {
     state = {
@@ -28,7 +26,6 @@ class SingleProduct extends React.Component {
 
     ///decrease qty
     decreaseQty = ( e, id, qty ) => {
-        console.log('qty :   : ', qty);
         this.props.decrease(id, qty);
 
     }
@@ -41,7 +38,7 @@ class SingleProduct extends React.Component {
             <div className="single-product" >
                 <div className="card sticky-action">
                     <div className="card-image waves-effect waves-block waves-light">
-                        <img className="activator" alt="hello" src={officeImg} />
+                        <img className="activator" alt={product.imageName} src={product.url} />
                         {
                             this.state.selected ? (
                                 

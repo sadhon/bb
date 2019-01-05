@@ -10,8 +10,10 @@ export const addProduct = (product) => {
             measurementUnit: product.measurementUnit,
             price: parseFloat(parseFloat(product.price).toFixed(2)),
             perUnit: parseInt(product.perUnit),
-            cat_sub: product.cat_sub,
+            subCat: product.subCat,
             keywords: product.keywords.trim().toLowerCase().split(","),
+            url: product.url,
+            imageName: product.imageName,
             createdAt: new Date()
 
         })

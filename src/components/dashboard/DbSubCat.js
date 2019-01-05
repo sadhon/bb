@@ -27,7 +27,7 @@ class DbSubCat extends  React.Component {
                             <li className="collection-item subcat-item subcat-item card"  key={subcat.name +'__' + i + '_'+Math.random()}>
                                 <div > {subcat.name}
                                     <span className="secondary-content"  title="Delete this subcat"  style={{cursor:'pointer'}} onClick={(e)=>this.deletesubcat(e, id, subcats, subcat)}><i className="material-icons">delete</i></span>
-                                    <Link to="/"  className="secondary-content" title="Edit this subcat" ><i className="material-icons">edit</i></Link>
+                                    <Link to={"/dashboard/create-product/" + subcat.name } className="secondary-content" title="Add a New Product" ><i className="material-icons">add</i></Link>
                                 </div>
                             </li>
                         )

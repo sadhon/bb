@@ -19,7 +19,7 @@ class App extends Component {
       <HashRouter >
         <div className="App">
           <Switch>
-            <Route path="/dashboard/create/product" component={CreateProduct} />
+            <Route path="/dashboard/create-product/:subCat" component={CreateProduct} />
             <Route path="/dashboard/category/create" component={CreateCategory} />
             <Route path="/dashboard/category/update/:cat_id" component={UpdateCategory} />
             <Route path="/dashboard/subcat/create/:cat_id/:cat_name" component={CreateSubCat} />
@@ -27,7 +27,7 @@ class App extends Component {
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-services" component={TermsOfServices} />
             <Route path="/create-user" component={CreateUser} />
-            <Route path="/:cat_sub" component={ClientView} />
+            <Route path="/:subCat" component={ClientView} />
             <Route path="/" component={ClientView} />
           </Switch>
 

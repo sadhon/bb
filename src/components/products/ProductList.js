@@ -177,7 +177,7 @@ export default compose(
     firestoreConnect(ownprops => [
         {
             collection: 'products',
-            where : ['cat_sub', '==', ownprops.cat_sub]
+            where : ['subCat', '==', ownprops.subCat ]
             
         }
     ])

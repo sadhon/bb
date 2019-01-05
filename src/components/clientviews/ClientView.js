@@ -201,8 +201,11 @@ class ClientView extends React.Component {
     render(){
 
         return (
+
+
             
             <div className='main-part'>
+                
                 <div className="">
                     <Navbar  controlSingIn={this.controlSingIn} toggleCatList={this.toggleCatList} fetchSearchText={this.fetchSearchText} />
                     <div className={" sidebar-container " + ( this.state.showCatList ? " left-0 " : " left-230 " ) }>
@@ -222,8 +225,8 @@ class ClientView extends React.Component {
                             </div>
             
                             {
-                                this.props.match.params.cat_sub ?
-                                    (<ProductList update={this.update} productsInsideBag={this.state.bag_products} search={this.state.search} cat_sub={this.props.match.params.cat_sub} /> ) : 
+                                this.props.match.params.subCat ?
+                                    (<ProductList update={this.update} productsInsideBag={this.state.bag_products} search={this.state.search} subCat={this.props.match.params.subCat} /> ) : 
                                 ( <p className="center-align">Select What type of product you need from side bar menu</p> )
                                 
                             }

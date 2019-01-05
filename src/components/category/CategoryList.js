@@ -19,7 +19,7 @@ const CategoryList = ({categories}) => {
                                         category.subcats && category.subcats.map(subcat =>{
                                             return (
                                                 <li key={subcat.name} className="subcat-item">
-                                                    <Link to={'/' + (category.name.trim().replace(" ", "_") + '_' + subcat.name.trim()).replace(" ", "_") } >
+                                                    <Link to={'/' + subcat.name } >
                                                         {subcat.name} 
                                                     </Link>
                                                 </li>
