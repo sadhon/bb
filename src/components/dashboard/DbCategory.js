@@ -7,46 +7,11 @@ import DbCat from './DbCat';
 
  
 class DbCategory extends Component {
-    // state = {
-    //     showCreateCategory: false,
-    //     showUpdateCategory: false,
-    //     updateId : '',
-    //     deleteId: ''
-    // }
-
-    // //delete category
-    // deleteCategoryHandler = (e, docId) => {
-    //     this.props.deleteCategory(docId);
-    // }
-    // // delete sub category
-    // deleteSubCatHandler = (e,id, subcats, subcat_name) =>{
-    //     e.preventDefault();
-    //     this.props.deleteSubCat(id, subcats, subcat_name);
-    // }
-
-    // // show form and add category
-    // addCat  = () => {
-    //     this.setState({
-    //         ...this.state,
-    //         showCreateCategory: true
-    //     })
-    // }
-
-    // //hide add category form 
-    // hideCategory = () =>{
-    //     this.setState({
-    //         ...this.state,
-    //         showCreateCategory: !this.state.showCreateCategory
-    //     })
-    // }
 
     render() {
         return (
             <div className="db">
-                <div className="container">
                     <DbCat />
-
-                </div>
             </div>
         )
     }

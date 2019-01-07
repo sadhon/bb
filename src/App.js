@@ -24,6 +24,7 @@ class App extends Component {
             <Route path="/dashboard/category/update/:cat_id" component={UpdateCategory} />
             <Route path="/dashboard/subcat/create/:cat_id/:cat_name" component={CreateSubCat} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard/:orderId" component={Dashboard} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-services" component={TermsOfServices} />
             <Route path="/create-user" component={CreateUser} />

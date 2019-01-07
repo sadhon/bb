@@ -137,8 +137,10 @@ class ClientView extends React.Component {
         {
             alert("Your bazar bag is empty. Please Choose items before placing an order.. Thanks");
         }else if(firebase.auth().currentUser){
-            console.log('bag products: ', this.state.bag_products)
-            this.props.placeOrder(this.state.bag_products, firebase.auth().currentUser.uid);
+            const user = JSON.parse(localStorage.getItem('user')) ;
+            const userId = firebase.auth().currentUser.uid;
+            const productList = this.state.bag_products;
+            this.props.placeOrder(productList, userId, user);
             this.setState({
                 ...this.state,
                 bag_products: []
@@ -341,7 +343,7 @@ class ClientView extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        placeOrder : (order, id)=>dispatch(placeOrder(order, id))
+        placeOrder : (order, id, user)=>dispatch(placeOrder(order, id, user))
     }
 }
 

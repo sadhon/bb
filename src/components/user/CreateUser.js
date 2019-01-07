@@ -32,6 +32,7 @@ class CreateUser extends Component {
                 uid: firebase.auth().currentUser.uid
             }, function(){
                 this.props.createUser(this.state);
+                localStorage.setItem('user', JSON.stringify(this.state));
                 this.props.history.push('/');
             } )
             
