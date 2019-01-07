@@ -3,7 +3,6 @@ import CategoryList from '../category/CategoryList';
 import Navbar from '../layouts/Navbar';
 import banar from '../../img/banar.jpg'
 import ProductList from '../products/ProductList';
-import {Link} from 'react-router-dom';
 import BagProduct from '../products/BagProduct'
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from '../../config/fbConfig';
@@ -28,7 +27,8 @@ class ClientView extends React.Component {
         showCatList: true,
         search: "",
         isSignedIn: false,
-        signInClicked: false
+        signInClicked: false,
+        signInWarning: false
     }
 
     update = (bagState) => {
@@ -147,9 +147,22 @@ class ClientView extends React.Component {
             }, localStorage.setItem('bag_products', JSON.stringify(this.state.bag_products)))
             
         }else{
-            alert("Please Login first then order....");
+            this.setState({
+                ...this.state,
+                signInWarning: true
+            })
 
         }
+    }
+
+    // hide sign in warning
+
+    hideSignInWarning = (e) => {
+        this.setState({
+            ...this.state,
+            signInWarning: false
+
+        })
     }
 
 
@@ -215,9 +228,14 @@ class ClientView extends React.Component {
                 
                 <div className="">
                     <Navbar  controlSingIn={this.controlSingIn} toggleCatList={this.toggleCatList} fetchSearchText={this.fetchSearchText} />
+                    <div className={"mobile-sidebar" + (this.state.showCatList ? " show ": " hide ")} onClick={this.toggleCatList}></div>
+
                     <div className={" sidebar-container " + ( this.state.showCatList ? " left-0 " : " left-230 " ) }>
+                        <div className="close-sidebar"  onClick={this.toggleCatList} > X </div>
                             <CategoryList />
                     </div>
+                    
+
 
                     
 
@@ -261,21 +279,14 @@ class ClientView extends React.Component {
                     {/* bazar bag */}
                     <div
                     className="bag-product-list "  >
-                        {
-                            this.state.bag_products.length > 0 ? 
-                            (    
-                                <div className="bag-header"  onClick={this.toggleBazarList} >          
-                                    <div className="cross">
-                                        {(
-                                            this.state.showBazarList ? "close" : "see bazar Item('s)"
-                                        )}
-                                    </div>
-                                    <span className='item'>Items: { this.state.bag_products.length }</span>
-                                </div>     
-                            ) : ("")
-                        }
-
-         
+                            <div className="bag-header"  onClick={this.toggleBazarList} >          
+                                <div className="cross">
+                                    {(
+                                        this.state.showBazarList ? "close" : "see bazar Item('s)"
+                                    )}
+                                </div>
+                                <span className='item'>Items: { this.state.bag_products.length }</span>
+                            </div>     
                         <ul 
                         className={"bag-products"  + ( this.state.showBazarList ? " show" : " hide" )}>
                         
@@ -294,21 +305,10 @@ class ClientView extends React.Component {
     
                         <div className="summary">
                             <div className="bottom">
-                                {
-                                    this.state.bag_products.length > 0 ?
-                                    (
-                                        <div>
-                                            <button onClick={this.handleOrder}>Order Now</button>
-                                            <span>  ৳  {getSubTotal(this.state.bag_products)}</span>
-                                        </div>
-                                        
-                                    )
-                                    :
-                                    (
-                                        <Link to="/education_old_book" className="start-bazar">Start bazar</Link>
-                                    )
-                                }
-                                
+                                <div>
+                                    <button onClick={this.handleOrder}>Order Now</button>
+                                    <span>  ৳  {getSubTotal(this.state.bag_products)}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -333,6 +333,13 @@ class ClientView extends React.Component {
                         ): ('')
                     }
 
+                </div>
+
+                <div onClick={this.hideSignInWarning} className={"signIn-warning " + (this.state.signInWarning ? " show " : " hide " )}>
+                    <div className="warning" onClick={e=> e.stopPropagation()}>
+                        <span onClick={this.hideSignInWarning}>X</span>
+                        <p>অনুগ্রহ করে আগে সাইন ইন করুন</p>
+                    </div>
                 </div>
             </div>
         )
